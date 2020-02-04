@@ -1,0 +1,22 @@
+{
+	"name": "PageToGitHub",
+	"description": "Free software wiki application developed by the Wikimedia Foundation and others",
+	"type": "mediawiki-extension",
+	"keywords": ["php", "lua", "github"],
+	"homepage": "https://github.com/lucamauri/PageToGitHub",
+	"authors": [
+		{
+			"name": "Luca Mauri",
+			"homepage": "https://www.lucamauri.com"
+		}
+	],
+	"license": "GPL-2.0-or-later",
+	"support": {
+		"issues": "https://github.com/lucamauri/PageToGitHub/issues",		
+		"wiki": "https://github.com/lucamauri/PageToGitHub/wiki"
+	},
+	"require": {		
+		"guzzlehttp/guzzle": "6.5.2",
+		"knplabs/github-api": "2.*"
+	}
+}
