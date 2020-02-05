@@ -142,7 +142,8 @@ class PageToGitHubHooks {
                 wfDebugLog('PageToGitHub', "[PageToGitHub]File retrieved. SHA: " . $oldFile['sha']);
                 $fileInfo = $client->api('repo')->contents()->update($P2GOwner, $P2GRepo, $pageName . '.lua', $fileContent, $commitText, $oldFile['sha']);
                 #echo 'File updated' , PHP_EOL;
-                wfDebugLog('PageToGitHub', "[PageToGitHub]File updated: " . $fileInfo['url'] . array_values($fileInfo));
+                #wfDebugLog('PageToGitHub', "[PageToGitHub]File updated: " . $fileInfo['url'] . array_values($fileInfo));
+                wfDebugLog('PageToGitHub', "[PageToGitHub]File updated: " . $fileInfo['url']);
             } else {
                 # echo 'Non Esiste ' , PHP_EOL;
                 wfDebugLog('PageToGitHub', "[PageToGitHub]NON Esiste");
