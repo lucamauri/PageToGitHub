@@ -1,6 +1,6 @@
 {
 	"name": "PageToGitHub",
-	"description": "Free software wiki application developed by the Wikimedia Foundation and others",
+	"description": "Allow the transport of page content to GitHub on page save",
 	"type": "mediawiki-extension",
 	"keywords": ["php", "lua", "github"],
 	"homepage": "https://github.com/lucamauri/PageToGitHub",

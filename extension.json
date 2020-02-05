@@ -22,6 +22,14 @@
 			"description": "Full path to php-github-api file",
 			"value": null
 		},
+		"P2GOwner": {
+			"description": "Name of the owner of the repository",
+			"value": null
+		},
+		"P2GRepo": {
+			"description": "Name of the repository where to save the files",
+			"value": null
+		},
 		"P2GAuthToken": {
 			"description": "Personal GitHub token",
 			"value": null
@@ -29,5 +37,10 @@
 	},
 	"ConfigRegistry": {
 		"PageToGitHub": "GlobalVarConfig::newInstance"
+	},
+	"MessagesDirs": {
+		"PageToGitHub": [
+			"i18n"
+		]
 	}
 }

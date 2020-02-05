@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Luca Mauri"
+		]
+	},
+    "auto-upload": "Auto upload by PageToGitHub on",
+    "auto-commit": "Auto commit by PageToGitHub",
+    "code-from-page": "This code from page"
+}
