@@ -52,31 +52,16 @@ class PageToGitHubHooks {
         $pageContent = $wikiPage->getContent()->getNativeData();
 
         wfDebugLog('PageToGitHub', "[PageToGitHub]Summary: " . $summary);
-
-        #wfDebugLog( 'PageToGitHub', "[PageToGitHub]pageNameSpace: " . $pageNameSpace);
-        #wfDebugLog( 'PageToGitHub', "[PageToGitHub]pageTitle: " . $pageTitle);
-        #wfDebugLog( 'PageToGitHub', "[PageToGitHub]pageContent: " . $pageContent);
- 
-        #wfDebugLog( 'PageToGitHub', "[PageToGitHub]wgP2GNameSpace: " . $P2GNameSpace);
-        #wfDebugLog( 'PageToGitHub', "[PageToGitHub]wgP2GPathAPI: " . $P2GPathAPI);
-        #wfDebugLog( 'PageToGitHub', "[PageToGitHub]wgP2GAuthToken: " . $P2GAuthToken);
-
+        
         if ($pageNameSpace == $P2GNameSpace) {
             wfDebugLog('PageToGitHub', "[PageToGitHub]True");
             #PageToGitHubHooks::Test();     
             #wfDebugLog('PageToGitHub', "[PageToGitHub]" . PageToGitHubHooks::Test());
             $return = PageToGitHubHooks::WriteToGithub($pageTitle, $pageContent, $summary, $config);
-            wfDebugLog('PageToGitHub', "[PageToGitHub]" . $return);
+            wfDebugLog('PageToGitHub', "[PageToGitHub]Ha restituito: " . $return);
         }
-
         return true;
-    }
-
-    public static function Test(){
-        #return "Dummy";
-        wfDebugLog('PageToGitHub', "[PageToGitHub]Init done");
-        return "Dummy";
-    }
+    }    
 
     public static function WriteToGithub($pageName, $pageContent, $description, $extConfig){
         try {
@@ -131,29 +116,23 @@ class PageToGitHubHooks {
             
 
             wfDebugLog('PageToGitHub', "[PageToGitHub]Message -auto-upload-: " . wfMessage("auto-upload")->parse());
-            if ($fileExists == TRUE) {
-                # echo 'Esiste ' , PHP_EOL;
+            if ($fileExists == TRUE) {                
                 wfDebugLog('PageToGitHub', "[PageToGitHub]Esiste");
                 #return "Esiste";
                     
                 #$oldFile = $client->api('repo')->contents()->show($P2GOwner, $P2GRepo, $pageName . '.lua');
                 $oldFile = $client->api('repo')->contents()->show(...$fileParamArray);
-                #echo 'File retrieved' , PHP_EOL;
                 wfDebugLog('PageToGitHub', "[PageToGitHub]File retrieved. SHA: " . $oldFile['sha']);
                 $fileInfo = $client->api('repo')->contents()->update($P2GOwner, $P2GRepo, $pageName . '.lua', $fileContent, $commitText, $oldFile['sha']);
-                #echo 'File updated' , PHP_EOL;
                 #wfDebugLog('PageToGitHub', "[PageToGitHub]File updated: " . $fileInfo['url'] . array_values($fileInfo));
                 wfDebugLog('PageToGitHub', "[PageToGitHub]File updated: " . $fileInfo['url']);
             } else {
-                # echo 'Non Esiste ' , PHP_EOL;
                 wfDebugLog('PageToGitHub', "[PageToGitHub]NON Esiste");
                 #return "Non esiste";
                 $fileInfo = $client->api('repo')->contents()->create($P2GOwner, $P2GRepo, $pageName . '.lua', $fileContent, $commitText);
-                #echo 'File created' , PHP_EOL;
                 wfDebugLog('PageToGitHub', "[PageToGitHub]File created");
             }        
         } catch (\Throwable $e) {
-            // echo 'Error' , PHP_EOL;
             #wfDebugLog('PageToGitHub', "[PageToGitHub]Error");
             wfDebugLog('PageToGitHub', "[PageToGitHub]Error " . $e->getMessage());
             #return $e->getMessage();
