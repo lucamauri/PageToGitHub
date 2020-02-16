@@ -18,6 +18,7 @@
 	},
 	"require": {		
 		"guzzlehttp/guzzle": "6.5.*",
-		"knplabs/github-api": "2.*"
+		"knplabs/github-api": "2.*",
+		"php-http/guzzle6-adapter": "^1.1"
 	}
 }
