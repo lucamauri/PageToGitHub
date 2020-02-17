@@ -19,114 +19,117 @@
 
 use MediaWiki\MediaWikiServices;
 
-class PageToGitHubHooks {
+class PageToGitHubHooks
+{
     /**
-    * Occurs after the save page request has been processed.
-    *
-    * @param WikiPage $wikiPage
-    * @param User $user
-    * @param Content $content
-    * @param string $summary
-    * @param bool $isMinor
-    * @param bool $isWatch
-    * @param null $section Deprecated
-    * @param int $flags
-    * @param Revision|null $revision
-    * @param Status $status
-    * @param int|bool $originalRevId
-    * @param int $undidRevId
-    *
-    * @return boolean
-    * @see https://www.mediawiki.org/wiki/Manual:Hooks/PageContentSaveComplete
-	 */
-    public static function onPageContentSaveComplete($wikiPage, $user, $content, $summary, $isMinor, $isWatch, $section, $flags, $revision, $status, $originalRevId, $undidRevId) {
+     * Occurs after the save page request has been processed.
+     *
+     * @param WikiPage      $wikiPage
+     * @param User          $user
+     * @param Content       $content
+     * @param string        $summary
+     * @param bool          $isMinor
+     * @param bool          $isWatch
+     * @param null          $section       Deprecated
+     * @param int           $flags
+     * @param Revision|null $revision
+     * @param Status        $status
+     * @param int|bool      $originalRevId
+     * @param int           $undidRevId
+     *
+     * @return bool
+     *
+     * @see https://www.mediawiki.org/wiki/Manual:Hooks/PageContentSaveComplete
+     */
+    public static function onPageContentSaveComplete($wikiPage, $user, $content, $summary, $isMinor, $isWatch, $section, $flags, $revision, $status, $originalRevId, $undidRevId)
+    {
         $config = MediaWikiServices::getInstance()->getConfigFactory()->makeConfig('PageToGitHub');
 
         $P2GNameSpace = $config->get('P2GNameSpace');
-        
-        #wfDebugLog( 'PageToGitHub', "[PageToGitHub]Entered");
+
+        //wfDebugLog( 'PageToGitHub', "[PageToGitHub]Entered");
         $pageNameSpace = $wikiPage->getTitle()->getNsText();
         $pageTitle = $wikiPage->getTitle()->getRootText();
         $pageContent = $wikiPage->getContent()->getNativeData();
 
-        wfDebugLog('PageToGitHub', "[PageToGitHub]Summary: " . $summary);
-        
-        if ($pageNameSpace == $P2GNameSpace) {
-            wfDebugLog('PageToGitHub', "[PageToGitHub]Namespace true");
-            #PageToGitHubHooks::Test();     
-            #wfDebugLog('PageToGitHub', "[PageToGitHub]" . PageToGitHubHooks::Test());
-            $return = PageToGitHubHooks::WriteToGithub($pageTitle, $pageContent, $summary, $config);
-            wfDebugLog('PageToGitHub', "[PageToGitHub]Returned: " . $return);
-        }
-        return true;
-    }    
+        wfDebugLog('PageToGitHub', '[PageToGitHub]Summary: '.$summary);
 
-    public static function WriteToGithub($pageName, $pageContent, $description, $extConfig){
+        if ($pageNameSpace == $P2GNameSpace) {
+            wfDebugLog('PageToGitHub', '[PageToGitHub]Namespace true');
+            //PageToGitHubHooks::Test();
+            //wfDebugLog('PageToGitHub', "[PageToGitHub]" . PageToGitHubHooks::Test());
+            $return = self::WriteToGithub($pageTitle, $pageContent, $summary, $config);
+            wfDebugLog('PageToGitHub', '[PageToGitHub]Returned: '.$return);
+        }
+
+        return true;
+    }
+
+    public static function WriteToGithub($pageName, $pageContent, $description, $extConfig)
+    {
         try {
-            wfDebugLog('PageToGitHub', "[PageToGitHub]Function WriteToGithub");
+            wfDebugLog('PageToGitHub', '[PageToGitHub]Function WriteToGithub');
 
             $P2GAuthToken = $extConfig->get('P2GAuthToken');
             $P2GOwner = $extConfig->get('P2GOwner');
             $P2GRepo = $extConfig->get('P2GRepo');
             $P2GNameSpace = $extConfig->get('P2GNameSpace');
 
-            wfDebugLog('PageToGitHub', "[PageToGitHub]Token: " . $P2GAuthToken);
-            
-            $client = new \Github\Client();            
-            wfDebugLog('PageToGitHub', "[PageToGitHub]Init done");
-            #wfDebugLog('PageToGitHub', "[PageToGitHub]Builder1: " . $client->getBuilderStatus());
-            
-            
+            wfDebugLog('PageToGitHub', '[PageToGitHub]Token: '.$P2GAuthToken);
+
+            $client = new \Github\Client();
+            wfDebugLog('PageToGitHub', '[PageToGitHub]Init done');
+            //wfDebugLog('PageToGitHub', "[PageToGitHub]Builder1: " . $client->getBuilderStatus());
+
             // https://github.com/KnpLabs/php-github-api/blob/master/doc/security.md
-            $client->authenticate($P2GAuthToken, '' , \Github\Client::AUTH_HTTP_TOKEN);
-            #wfDebugLog('PageToGitHub', "[PageToGitHub]Builder2: " . $client->getBuilderStatus());
+            $client->authenticate($P2GAuthToken, '', \Github\Client::AUTH_HTTP_TOKEN);
+            //wfDebugLog('PageToGitHub', "[PageToGitHub]Builder2: " . $client->getBuilderStatus());
 
             /*
             if ($client == null) {
                 wfDebugLog('PageToGitHub', "[PageToGitHub]NULL");
-            } else {                
-                wfDebugLog('PageToGitHub', "[PageToGitHub]Class: ". get_class($client));                
+            } else {
+                wfDebugLog('PageToGitHub', "[PageToGitHub]Class: ". get_class($client));
             }
             */
 
-            #$repoContent = $client->api('repo')->contents();
-            #wfDebugLog('PageToGitHub', "[PageToGitHub]Contents set");
-            #wfDebugLog('PageToGitHub', "[PageToGitHub]Misc: " . $repoContent->show('WikiTrek', 'CodiceLUA'));
-            #return $client->getApiVersion();
+            //$repoContent = $client->api('repo')->contents();
+            //wfDebugLog('PageToGitHub', "[PageToGitHub]Contents set");
+            //wfDebugLog('PageToGitHub', "[PageToGitHub]Misc: " . $repoContent->show('WikiTrek', 'CodiceLUA'));
+            //return $client->getApiVersion();
 
-            $fileParamArray = [$P2GOwner, $P2GRepo, $pageName . '.lua'];
-            $fileContent = "-- Auto upload by PageToGitHub on " . date("c") . PHP_EOL . "-- This code from page " . $P2GNameSpace . ":" . $pageName . PHP_EOL . $pageContent;
+            $fileParamArray = [$P2GOwner, $P2GRepo, $pageName.'.lua'];
+            $fileContent = '-- Auto upload by PageToGitHub on '.date('c').PHP_EOL.'-- This code from page '.$P2GNameSpace.':'.$pageName.PHP_EOL.$pageContent;
             if ($description == null) {
-                $commitText = "Auto commit by PageToGitHub" . date('Y-m-d');
+                $commitText = 'Auto commit by PageToGitHub'.date('Y-m-d');
             } else {
                 $commitText = $description;
-            }            
+            }
 
-            # https://github.com/KnpLabs/php-github-api/blob/master/doc/repo/cohttps://www.php.net/manual/en/function.get-class.phpntents.md
-            #$fileExists = $client->api('repo')->contents()->exists($P2GOwner, $P2GRepo, $pageName . '.lua');
+            // https://github.com/KnpLabs/php-github-api/blob/master/doc/repo/cohttps://www.php.net/manual/en/function.get-class.phpntents.md
+            //$fileExists = $client->api('repo')->contents()->exists($P2GOwner, $P2GRepo, $pageName . '.lua');
             $fileExists = $client->api('repo')->contents()->exists(...$fileParamArray);
-            
 
-            wfDebugLog('PageToGitHub', "[PageToGitHub]Message -auto-upload-: " . wfMessage("auto-upload")->parse());
-            if ($fileExists == TRUE) {                
-                wfDebugLog('PageToGitHub', "[PageToGitHub]Esiste");
-                #return "Esiste";
-                    
-                #$oldFile = $client->api('repo')->contents()->show($P2GOwner, $P2GRepo, $pageName . '.lua');
+            wfDebugLog('PageToGitHub', '[PageToGitHub]Message -auto-upload-: '.wfMessage('auto-upload')->parse());
+            if ($fileExists == true) {
+                wfDebugLog('PageToGitHub', '[PageToGitHub]Esiste');
+                //return "Esiste";
+
+                //$oldFile = $client->api('repo')->contents()->show($P2GOwner, $P2GRepo, $pageName . '.lua');
                 $oldFile = $client->api('repo')->contents()->show(...$fileParamArray);
-                wfDebugLog('PageToGitHub', "[PageToGitHub]File retrieved. SHA: " . $oldFile['sha']);
-                $fileInfo = $client->api('repo')->contents()->update($P2GOwner, $P2GRepo, $pageName . '.lua', $fileContent, $commitText, $oldFile['sha']);
-                #wfDebugLog('PageToGitHub', "[PageToGitHub]File updated: " . $fileInfo['url'] . array_values($fileInfo));
-                wfDebugLog('PageToGitHub', "[PageToGitHub]File updated: " . $fileInfo['url']);
+                wfDebugLog('PageToGitHub', '[PageToGitHub]File retrieved. SHA: '.$oldFile['sha']);
+                $fileInfo = $client->api('repo')->contents()->update($P2GOwner, $P2GRepo, $pageName.'.lua', $fileContent, $commitText, $oldFile['sha']);
+                //wfDebugLog('PageToGitHub', "[PageToGitHub]File updated: " . $fileInfo['url'] . array_values($fileInfo));
+                wfDebugLog('PageToGitHub', '[PageToGitHub]File updated: '.$fileInfo['url']);
             } else {
-                wfDebugLog('PageToGitHub', "[PageToGitHub]NON Esiste");                
-                $fileInfo = $client->api('repo')->contents()->create($P2GOwner, $P2GRepo, $pageName . '.lua', $fileContent, $commitText);
-                wfDebugLog('PageToGitHub', "[PageToGitHub]File created");
-            }        
-        } catch (\Throwable $e) {            
-            wfDebugLog('PageToGitHub', "[PageToGitHub]Error " . $e->getMessage());            
+                wfDebugLog('PageToGitHub', '[PageToGitHub]NON Esiste');
+                $fileInfo = $client->api('repo')->contents()->create($P2GOwner, $P2GRepo, $pageName.'.lua', $fileContent, $commitText);
+                wfDebugLog('PageToGitHub', '[PageToGitHub]File created');
+            }
+        } catch (\Throwable $e) {
+            wfDebugLog('PageToGitHub', '[PageToGitHub]Error '.$e->getMessage());
         } finally {
-            #return ("Returned from FINALLY");
+            //return ("Returned from FINALLY");
         }
-    } 
+    }
 }
