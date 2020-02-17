@@ -26,7 +26,7 @@ $wgP2GOwner = 'ProjectOrPerson';
 $wgP2GRepo = 'Repository';
 ```
 ## Troubleshoot
-To read detailed logging messages, intercept the [https://www.mediawiki.org/wiki/Manual:$wgDebugLogGroups](log group) named `PageToGitHub`, for instace with the following configuration:
+To read detailed logging messages, intercept the [log group](https://www.mediawiki.org/wiki/Manual:$wgDebugLogGroups) named `PageToGitHub`, for instace with the following configuration:
 
 ```
 $wgShowExceptionDetails = true;
@@ -35,7 +35,7 @@ $wgDebugLogGroups['PageToGitHub'] = "/var/log/mediawiki/PageToGitHub-{$wgDBname}
 
 ## Documentation
 ## License
-[https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html](GNU General Public License, version 2)
+[GNU General Public License, version 2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
 
 ## Maintainers
 ## Contributors
