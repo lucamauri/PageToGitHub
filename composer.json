@@ -11,9 +11,11 @@
 			"role": "Developer"
 		}
 	],
-	"license": "GPL-3.0-or-later",
+	"license": "GPL-2.0-or-later",
 	"support": {
-		"issues": "https://github.com/lucamauri/PageToGitHub/issues",		
+		"issues": "https://github.com/lucamauri/PageToGitHub/issues",
+		"source": "https://github.com/lucamauri/PageToGitHub",
+		"docs": "https://github.com/lucamauri/PageToGitHub",		
 		"wiki": "https://github.com/lucamauri/PageToGitHub/wiki"
 	},
 	"require": {		

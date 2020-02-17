@@ -17,8 +17,6 @@
  * @file
  */
 
-#namespace MediaWiki\Extension\PageToGitHub;
-
 use MediaWiki\MediaWikiServices;
 
 class PageToGitHubHooks {
@@ -54,11 +52,11 @@ class PageToGitHubHooks {
         wfDebugLog('PageToGitHub', "[PageToGitHub]Summary: " . $summary);
         
         if ($pageNameSpace == $P2GNameSpace) {
-            wfDebugLog('PageToGitHub', "[PageToGitHub]True");
+            wfDebugLog('PageToGitHub', "[PageToGitHub]Namespace true");
             #PageToGitHubHooks::Test();     
             #wfDebugLog('PageToGitHub', "[PageToGitHub]" . PageToGitHubHooks::Test());
             $return = PageToGitHubHooks::WriteToGithub($pageTitle, $pageContent, $summary, $config);
-            wfDebugLog('PageToGitHub', "[PageToGitHub]Ha restituito: " . $return);
+            wfDebugLog('PageToGitHub', "[PageToGitHub]Returned: " . $return);
         }
         return true;
     }    
@@ -67,16 +65,13 @@ class PageToGitHubHooks {
         try {
             wfDebugLog('PageToGitHub', "[PageToGitHub]Function WriteToGithub");
 
-            $P2GPathAPI = $extConfig->get('P2GPathAPI');
             $P2GAuthToken = $extConfig->get('P2GAuthToken');
             $P2GOwner = $extConfig->get('P2GOwner');
             $P2GRepo = $extConfig->get('P2GRepo');
             $P2GNameSpace = $extConfig->get('P2GNameSpace');
 
             wfDebugLog('PageToGitHub', "[PageToGitHub]Token: " . $P2GAuthToken);
-            #require_once '/usr/local/bin/php-github-api/vendor/autoload.php';
-            require_once $P2GPathAPI;
-
+            
             $client = new \Github\Client();            
             wfDebugLog('PageToGitHub', "[PageToGitHub]Init done");
             #wfDebugLog('PageToGitHub', "[PageToGitHub]Builder1: " . $client->getBuilderStatus());
@@ -85,9 +80,6 @@ class PageToGitHubHooks {
             // https://github.com/KnpLabs/php-github-api/blob/master/doc/security.md
             $client->authenticate($P2GAuthToken, '' , \Github\Client::AUTH_HTTP_TOKEN);
             #wfDebugLog('PageToGitHub', "[PageToGitHub]Builder2: " . $client->getBuilderStatus());
-
-            #echo 'Authenticated' , PHP_EOL;
-            #return "Returned";
 
             /*
             if ($client == null) {
@@ -127,15 +119,12 @@ class PageToGitHubHooks {
                 #wfDebugLog('PageToGitHub', "[PageToGitHub]File updated: " . $fileInfo['url'] . array_values($fileInfo));
                 wfDebugLog('PageToGitHub', "[PageToGitHub]File updated: " . $fileInfo['url']);
             } else {
-                wfDebugLog('PageToGitHub', "[PageToGitHub]NON Esiste");
-                #return "Non esiste";
+                wfDebugLog('PageToGitHub', "[PageToGitHub]NON Esiste");                
                 $fileInfo = $client->api('repo')->contents()->create($P2GOwner, $P2GRepo, $pageName . '.lua', $fileContent, $commitText);
                 wfDebugLog('PageToGitHub', "[PageToGitHub]File created");
             }        
-        } catch (\Throwable $e) {
-            #wfDebugLog('PageToGitHub', "[PageToGitHub]Error");
-            wfDebugLog('PageToGitHub', "[PageToGitHub]Error " . $e->getMessage());
-            #return $e->getMessage();
+        } catch (\Throwable $e) {            
+            wfDebugLog('PageToGitHub', "[PageToGitHub]Error " . $e->getMessage());            
         } finally {
             #return ("Returned from FINALLY");
         }

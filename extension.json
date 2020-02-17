@@ -1,9 +1,9 @@
 {
 	"name": "PageToGitHub",
 	"author": "Luca Mauri",
-	"url": "https://github.com/lucamauri/PageToGitHub/issues",
+	"url": "https://github.com/lucamauri/PageToGitHub",
 	"description": "Allow the transport of page content to GitHub on page save",
-	"version": "0.1",
+	"version": "0.5",
 	"license-name": "GPL-2.0-or-later",
 	"type": "parserhook",
 	"manifest_version": 1,
@@ -17,11 +17,7 @@
 		"P2GNameSpace": {
 			"description": "Label of the namespace to check",
 			"value": null
-		},
-		"P2GPathAPI": {
-			"description": "Full path to php-github-api file",
-			"value": null
-		},
+		},		
 		"P2GOwner": {
 			"description": "Name of the owner of the repository",
 			"value": null
