@@ -3,7 +3,7 @@
 	"author": "Luca Mauri",
 	"url": "https://github.com/lucamauri/PageToGitHub",
 	"description": "Allow the transport of page content to GitHub on page save",
-	"version": "0.5",
+	"version": "0.6",
 	"license-name": "GPL-2.0-or-later",
 	"type": "parserhook",
 	"manifest_version": 1,
@@ -24,6 +24,10 @@
 		},
 		"P2GRepo": {
 			"description": "Name of the repository where to save the files",
+			"value": null
+		},
+		"P2GKeyword": {
+			"description": "Optional keyword to include selected page only in the transport",
 			"value": null
 		},
 		"P2GAuthToken": {

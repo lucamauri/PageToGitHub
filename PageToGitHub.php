@@ -46,8 +46,10 @@ class PageToGitHubHooks
         $config = MediaWikiServices::getInstance()->getConfigFactory()->makeConfig('PageToGitHub');
 
         $P2GNameSpace = $config->get('P2GNameSpace');
+        $P2GKeyword = $config->get('P2GKeyword');
+        //wfDebugLog('PageToGitHub', '[PageToGitHub]Keyword type: '.gettype($P2GKeyword[0]));
 
-        //wfDebugLog( 'PageToGitHub', "[PageToGitHub]Entered");
+        wfDebugLog( 'PageToGitHub', "[PageToGitHub]Entered");
         $pageNameSpace = $wikiPage->getTitle()->getNsText();
         $pageTitle = $wikiPage->getTitle()->getRootText();
         $pageContent = $wikiPage->getContent()->getNativeData();
@@ -55,11 +57,17 @@ class PageToGitHubHooks
         wfDebugLog('PageToGitHub', '[PageToGitHub]Summary: '.$summary);
 
         if ($pageNameSpace == $P2GNameSpace) {
-            wfDebugLog('PageToGitHub', '[PageToGitHub]Namespace true');
-            //PageToGitHubHooks::Test();
-            //wfDebugLog('PageToGitHub', "[PageToGitHub]" . PageToGitHubHooks::Test());
-            $return = self::WriteToGithub($pageTitle, $pageContent, $summary, $config);
-            wfDebugLog('PageToGitHub', '[PageToGitHub]Returned: '.$return);
+            wfDebugLog('PageToGitHub', '[PageToGitHub]Namespace OK');
+            // || $P2GKeyword == ''  || strpos($pageContent, $P2GKeyword) > -1
+            wfDebugLog('PageToGitHub', '[PageToGitHub]Keyword count: '.count($P2GKeyword));
+            wfDebugLog('PageToGitHub', '[PageToGitHub]Keyword: '.$P2GKeyword[0]);
+            if ($P2GKeyword[0] == null or $P2GKeyword == '' or (strpos($pageContent, $P2GKeyword) > -1)) {
+                wfDebugLog('PageToGitHub', '[PageToGitHub]Keyword OK');
+                $return = self::WriteToGithub($pageTitle, $pageContent, $summary, $config);
+                wfDebugLog('PageToGitHub', '[PageToGitHub]Returned: '.$return);
+            } else {
+                wfDebugLog('PageToGitHub', '[PageToGitHub]Keyword KO');
+            }
         }
 
         return true;
@@ -79,27 +87,12 @@ class PageToGitHubHooks
 
             $client = new \Github\Client();
             wfDebugLog('PageToGitHub', '[PageToGitHub]Init done');
-            //wfDebugLog('PageToGitHub', "[PageToGitHub]Builder1: " . $client->getBuilderStatus());
 
             // https://github.com/KnpLabs/php-github-api/blob/master/doc/security.md
             $client->authenticate($P2GAuthToken, '', \Github\Client::AUTH_HTTP_TOKEN);
-            //wfDebugLog('PageToGitHub', "[PageToGitHub]Builder2: " . $client->getBuilderStatus());
-
-            /*
-            if ($client == null) {
-                wfDebugLog('PageToGitHub', "[PageToGitHub]NULL");
-            } else {
-                wfDebugLog('PageToGitHub', "[PageToGitHub]Class: ". get_class($client));
-            }
-            */
-
-            //$repoContent = $client->api('repo')->contents();
-            //wfDebugLog('PageToGitHub', "[PageToGitHub]Contents set");
-            //wfDebugLog('PageToGitHub', "[PageToGitHub]Misc: " . $repoContent->show('WikiTrek', 'CodiceLUA'));
-            //return $client->getApiVersion();
 
             $fileParamArray = [$P2GOwner, $P2GRepo, $pageName.'.lua'];
-            $fileContent = '-- Auto upload by PageToGitHub on '.date('c').PHP_EOL.'-- This code from page '.$P2GNameSpace.':'.$pageName.PHP_EOL.$pageContent;
+            $fileContent = '-- [P2G] Auto upload by PageToGitHub on '.date('c').PHP_EOL.'-- [P2G] This code from page '.$P2GNameSpace.':'.$pageName.PHP_EOL.$pageContent;
             if ($description == null) {
                 $commitText = 'Auto commit by PageToGitHub'.date('Y-m-d');
             } else {
@@ -112,8 +105,7 @@ class PageToGitHubHooks
 
             wfDebugLog('PageToGitHub', '[PageToGitHub]Message -auto-upload-: '.wfMessage('auto-upload')->parse());
             if ($fileExists == true) {
-                wfDebugLog('PageToGitHub', '[PageToGitHub]Esiste');
-                //return "Esiste";
+                wfDebugLog('PageToGitHub', '[PageToGitHub]Exist');
 
                 //$oldFile = $client->api('repo')->contents()->show($P2GOwner, $P2GRepo, $pageName . '.lua');
                 $oldFile = $client->api('repo')->contents()->show(...$fileParamArray);
@@ -122,14 +114,16 @@ class PageToGitHubHooks
                 //wfDebugLog('PageToGitHub', "[PageToGitHub]File updated: " . $fileInfo['url'] . array_values($fileInfo));
                 wfDebugLog('PageToGitHub', '[PageToGitHub]File updated: '.$fileInfo['url']);
             } else {
-                wfDebugLog('PageToGitHub', '[PageToGitHub]NON Esiste');
+                wfDebugLog('PageToGitHub', '[PageToGitHub]Does NOT exist');
                 $fileInfo = $client->api('repo')->contents()->create($P2GOwner, $P2GRepo, $pageName.'.lua', $fileContent, $commitText);
                 wfDebugLog('PageToGitHub', '[PageToGitHub]File created');
             }
         } catch (\Throwable $e) {
             wfDebugLog('PageToGitHub', '[PageToGitHub]Error '.$e->getMessage());
+            return false;
         } finally {
             //return ("Returned from FINALLY");
         }
+        return true;
     }
 }
