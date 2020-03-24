@@ -16,6 +16,24 @@ It was originally conceived and written by [Luca Mauri](https://github.com/lucam
 ## Requirements
 
 ## Install
+First of all, add the composer configuration to the `composer.local.json` at the root of your mediawiki installation, or create the file if it does not exist yet:
+```
+{
+  "extra": {
+    "merge-plugin": {
+      "include": [
+        "extensions/PageToGitHub/composer.json"
+      ]
+    }
+  }
+}
+```
+
+and run Composer in a console from the root of your mediawiki installation: using just one of these methods:
+```
+composer install --no-dev
+```
+
 
 ## Configuration
 In the `LocalSettigs.php` file add:
