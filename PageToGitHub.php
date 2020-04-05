@@ -49,7 +49,7 @@ class PageToGitHubHooks
         $P2GKeyword = $config->get('P2GKeyword');
         //wfDebugLog('PageToGitHub', '[PageToGitHub]Keyword type: '.gettype($P2GKeyword[0]));
 
-        wfDebugLog('PageToGitHub', "[PageToGitHub]Entered");
+        wfDebugLog('PageToGitHub', '[PageToGitHub]Entered');
         $pageNameSpace = $wikiPage->getTitle()->getNsText();
         $pageTitle = $wikiPage->getTitle()->getRootText();
         $pageContent = $wikiPage->getContent()->getNativeData();
