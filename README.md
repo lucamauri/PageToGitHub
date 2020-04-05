@@ -18,7 +18,16 @@ It was originally conceived and written by [Luca Mauri](https://github.com/lucam
 ## Requirements
 
 ## Install
-First of all, add the composer configuration to the `composer.local.json` at the root of your mediawiki installation, or create the file if it does not exist yet:
+Download extension from GitHub and place the uncompressed files in a directory called `PageToGitHub
+` in the `extensions/` folder of your MediaWiki installation.
+
+Add the following code at the bottom of the site's `LocalSettings.php`:
+```
+wfLoadExtension('PageToGitHub');
+```
+Below this line, add the configuration parameters as explained below in *Configuration* section.
+
+In order to install dependencies needed by the extension, add the composer configuration to the `composer.local.json` at the root of your mediawiki installation, or create the file if it does not exist yet:
 ```
 {
   "extra": {
@@ -30,21 +39,19 @@ First of all, add the composer configuration to the `composer.local.json` at the
   }
 }
 ```
-
-and run Composer in a console from the root of your mediawiki installation: using just one of these methods:
+and run Composer in a console from the root of your mediawiki installation:
 ```
 composer install --no-dev
 ```
-
 
 ## Configuration
 In the `LocalSettigs.php` file add:
 
 ```
 $wgP2GNameSpace = 'Module';
-$wgP2GRepo = 'Repository';
-$wgP2GAuthToken = 'GitHubToken';
-$wgP2GOwner = 'ProjectOrPerson';
+$wgP2GRepo = 'Name-Of-Your-Repository';
+$wgP2GAuthToken = 'GitHub-Token';
+$wgP2GOwner = 'Project-Or-Person';
 $wgP2GKeyword = 'Keyword';
 ```
 ### $wgP2GNameSpace
