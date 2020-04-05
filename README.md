@@ -22,13 +22,13 @@ Download extension from GitHub and place the uncompressed files in a directory c
 ` in the `extensions/` folder of your MediaWiki installation.
 
 Add the following code at the bottom of the site's `LocalSettings.php`:
-```
+```PHP
 wfLoadExtension('PageToGitHub');
 ```
 Below this line, add the configuration parameters as explained below in *Configuration* section.
 
 In order to install dependencies needed by the extension, add the composer configuration to the `composer.local.json` at the root of your mediawiki installation, or create the file if it does not exist yet:
-```
+```JSON
 {
   "extra": {
     "merge-plugin": {
