@@ -48,20 +48,17 @@ class PageToGitHubHooks
         $P2GNameSpace = $config->get('P2GNameSpace');
         $P2GKeyword = $config->get('P2GKeyword');
         //wfDebugLog('PageToGitHub', '[PageToGitHub]Keyword type: '.gettype($P2GKeyword[0]));
-        $P2GignoreMinor = true;
+        //$P2GignoreMinor = true;
+        $P2GIgnoreMinor = $config->get('P2GIgnoreMinor');
 
-<<<<<<< HEAD
-        wfDebugLog( 'PageToGitHub', '[PageToGitHub]Entered');
-=======
         wfDebugLog('PageToGitHub', '[PageToGitHub]Entered');
->>>>>>> 0202cae82c0f4ab46248acdce50f2e068569c362
         $pageNameSpace = $wikiPage->getTitle()->getNsText();
         $pageTitle = $wikiPage->getTitle()->getRootText();
         $pageContent = $wikiPage->getContent()->getNativeData();
 
         wfDebugLog('PageToGitHub', '[PageToGitHub]Summary: '.$summary);
         
-        if ($P2GignoreMinor and $isMinor) {
+        if ($P2GIgnoreMinor and $isMinor) {
             wfDebugLog('PageToGitHub', '[PageToGitHub]IGNORING Minor');            
         } else {
             wfDebugLog('PageToGitHub', '[PageToGitHub]NOT ignoring Minor');

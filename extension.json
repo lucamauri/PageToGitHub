@@ -1,6 +1,6 @@
 {
   "name": "PageToGitHub",
-  "author": "Luca Mauri",
+  "author": "[https://www.lucamauri.com/ Luca Mauri]",
   "url": "https://github.com/lucamauri/PageToGitHub",
   "description": "Allow the transport of page content to GitHub on page save",
   "version": "1.0",
@@ -14,6 +14,10 @@
     "PageContentSaveComplete": ["PageToGitHubHooks::onPageContentSaveComplete"]
   },
   "config": {
+    "P2GIgnoreMinor": {
+      "description": "Ignore chages if they are Minor",
+      "value": true
+    },
     "P2GNameSpace": {
       "description": "Label of the namespace to check",
       "descriptionmsg": "p2g-config-namespace",
