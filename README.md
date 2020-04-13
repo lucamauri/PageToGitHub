@@ -7,6 +7,8 @@
 [![Monthly Downloads](https://poser.pugx.org/lucamauri/page-to-github/d/monthly)](https://packagist.org/packages/lucamauri/page-to-github)
 [![Daily Downloads](https://poser.pugx.org/lucamauri/page-to-github/d/daily)](https://packagist.org/packages/lucamauri/page-to-github)
 [![composer.lock](https://poser.pugx.org/lucamauri/page-to-github/composerlock)](https://packagist.org/packages/lucamauri/page-to-github)
+[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/lucamauri/PageToGitHub.svg)](http://isitmaintained.com/project/lucamauri/PageToGitHub "Average time to resolve an issue")
+[![Percentage of issues still open](http://isitmaintained.com/badge/open/lucamauri/PageToGitHub.svg)](http://isitmaintained.com/project/lucamauri/PageToGitHub "Percentage of issues still open")
 
 PageToGitHub, P2G in short, is a MediaWiki extension to automatically transfer code from a MediaWiki wiki to GitHub.
 It was originally conceived and written by [Luca Mauri](https://github.com/lucamauri) for use in [Wikitrek](https://github.com/WikiTrek): it is released as open source here in case it can be useful to anybody else.
@@ -16,15 +18,40 @@ It was originally conceived and written by [Luca Mauri](https://github.com/lucam
 ## Requirements
 
 ## Install
+Download extension from GitHub and place the uncompressed files in a directory called `PageToGitHub
+` in the `extensions/` folder of your MediaWiki installation.
+
+Add the following code at the bottom of the site's `LocalSettings.php`:
+```PHP
+wfLoadExtension('PageToGitHub');
+```
+Below this line, add the configuration parameters as explained below in *Configuration* section.
+
+In order to install dependencies needed by the extension, add the composer configuration to the `composer.local.json` at the root of your mediawiki installation, or create the file if it does not exist yet:
+```JSON
+{
+  "extra": {
+    "merge-plugin": {
+      "include": [
+        "extensions/PageToGitHub/composer.json"
+      ]
+    }
+  }
+}
+```
+and run Composer in a console from the root of your mediawiki installation:
+```
+composer install --no-dev
+```
 
 ## Configuration
 In the `LocalSettigs.php` file add:
 
 ```
 $wgP2GNameSpace = 'Module';
-$wgP2GRepo = 'Repository';
-$wgP2GAuthToken = 'GitHubToken';
-$wgP2GOwner = 'ProjectOrPerson';
+$wgP2GRepo = 'Name-Of-Your-Repository';
+$wgP2GAuthToken = 'GitHub-Token';
+$wgP2GOwner = 'Project-Or-Person';
 $wgP2GKeyword = 'Keyword';
 ```
 ### $wgP2GNameSpace
