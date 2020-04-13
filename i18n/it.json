@@ -1,10 +1,9 @@
 {
-	"@metadata": {
-		"authors": [
-			"Luca Mauri"
-		]
-	},
-    "auto-upload": "Upload automatica di PageToGitHub il",
-    "auto-commit": "Commit automatico di PageToGitHub",
-    "code-from-page": "Questo codice proviene da"
+  "@metadata": {
+    "authors": ["Luca Mauri"]
+  },
+  "auto-upload": "Upload automatica di PageToGitHub il",
+  "auto-commit": "Commit automatico di PageToGitHub",
+  "code-from-page": "Questo codice proviene da",
+  "p2g-config-namespace": "Nome del namespace da controllare"
 }

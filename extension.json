@@ -1,46 +1,45 @@
 {
-	"name": "PageToGitHub",
-	"author": "Luca Mauri",
-	"url": "https://github.com/lucamauri/PageToGitHub",
-	"description": "Allow the transport of page content to GitHub on page save",
-	"version": "0.6",
-	"license-name": "GPL-2.0-or-later",
-	"type": "parserhook",
-	"manifest_version": 1,
-	"AutoloadClasses": {
-		"PageToGitHubHooks": "PageToGitHub.php"
-	},
-    "Hooks": {
-        "PageContentSaveComplete": ["PageToGitHubHooks::onPageContentSaveComplete"]
-	},
-	"config": {
-		"P2GNameSpace": {
-			"description": "Label of the namespace to check",
-			"value": null
-		},		
-		"P2GOwner": {
-			"description": "Name of the owner of the repository",
-			"value": null
-		},
-		"P2GRepo": {
-			"description": "Name of the repository where to save the files",
-			"value": null
-		},
-		"P2GKeyword": {
-			"description": "Optional keyword to include selected page only in the transport",
-			"value": null
-		},
-		"P2GAuthToken": {
-			"description": "Personal GitHub token",
-			"value": null
-		}
-	},
-	"ConfigRegistry": {
-		"PageToGitHub": "GlobalVarConfig::newInstance"
-	},
-	"MessagesDirs": {
-		"PageToGitHub": [
-			"i18n"
-		]
-	}
+  "name": "PageToGitHub",
+  "author": "Luca Mauri",
+  "url": "https://github.com/lucamauri/PageToGitHub",
+  "description": "Allow the transport of page content to GitHub on page save",
+  "version": "1.0",
+  "license-name": "GPL-2.0-or-later",
+  "type": "parserhook",
+  "manifest_version": 1,
+  "AutoloadClasses": {
+    "PageToGitHubHooks": "PageToGitHub.php"
+  },
+  "Hooks": {
+    "PageContentSaveComplete": ["PageToGitHubHooks::onPageContentSaveComplete"]
+  },
+  "config": {
+    "P2GNameSpace": {
+      "description": "Label of the namespace to check",
+      "descriptionmsg": "p2g-config-namespace",
+      "value": null
+    },
+    "P2GOwner": {
+      "description": "Name of the owner of the repository",
+      "value": null
+    },
+    "P2GRepo": {
+      "description": "Name of the repository where to save the files",
+      "value": null
+    },
+    "P2GKeyword": {
+      "description": "Optional keyword to include selected page only in the transport",
+      "value": null
+    },
+    "P2GAuthToken": {
+      "description": "Personal GitHub token",
+      "value": null
+    }
+  },
+  "ConfigRegistry": {
+    "PageToGitHub": "GlobalVarConfig::newInstance"
+  },
+  "MessagesDirs": {
+    "PageToGitHub": ["i18n"]
+  }
 }
