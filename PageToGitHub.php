@@ -57,7 +57,7 @@ class PageToGitHubHooks
         $pageContent = $wikiPage->getContent()->getNativeData();
 
         wfDebugLog('PageToGitHub', '[PageToGitHub]Summary: '.$summary);
-        
+
         if ($P2GIgnoreMinor and $isMinor) {
             wfDebugLog('PageToGitHub', '[PageToGitHub]IGNORING Minor');
         } else {
