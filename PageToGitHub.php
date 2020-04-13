@@ -59,7 +59,7 @@ class PageToGitHubHooks
         wfDebugLog('PageToGitHub', '[PageToGitHub]Summary: '.$summary);
         
         if ($P2GIgnoreMinor and $isMinor) {
-            wfDebugLog('PageToGitHub', '[PageToGitHub]IGNORING Minor');            
+            wfDebugLog('PageToGitHub', '[PageToGitHub]IGNORING Minor');
         } else {
             wfDebugLog('PageToGitHub', '[PageToGitHub]NOT ignoring Minor');
             if ($pageNameSpace == $P2GNameSpace) {
@@ -77,7 +77,7 @@ class PageToGitHubHooks
             } else {
                 wfDebugLog('PageToGitHub', '[PageToGitHub]Namespace KO');
             }
-        }        
+        }
 
         return true;
     }
@@ -131,10 +131,10 @@ class PageToGitHubHooks
             wfDebugLog('PageToGitHub', '[PageToGitHub]Error '.$e->getMessage());
 
             return false;
-        } finally {            
+        } finally {
             //return ("Returned from FINALLY");
         }
-        
+
         return true;
     }
 }
