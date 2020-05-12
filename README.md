@@ -34,17 +34,22 @@ In order to install dependencies needed by the extension, add the composer confi
 
 ```JSON
 {
-  "extra": {
-    "merge-plugin": {
-      "include": [
-        "extensions/PageToGitHub/composer.json"
-      ]
-    }
-  }
+	"require": {		
+		"lucamauri/page-to-github": "~1.0"
+	},
+	"extra": {
+		"merge-plugin": {
+			"include": [
+			]
+		}
+	},
+	"config": {
+	}
 }
+
 ```
 
-and run Composer in a console from the root of your mediawiki installation:
+and, in a command prompt, run Composer in the root of your mediawiki installation:
 
 ```
 composer install --no-dev
