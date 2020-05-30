@@ -19,34 +19,24 @@ It was originally conceived and written by [Luca Mauri](https://github.com/lucam
 ## Requirements
 
 ## Install
+Easiest way to install the extension is using _Composer_: it will automatically resolve all the dependencies and install them as well.
 
-Download extension from GitHub and place the uncompressed files in a directory called `PageToGitHub` in the `extensions/` folder of your MediaWiki installation.
-
-Add the following code at the bottom of the site's `LocalSettings.php`:
-
-```PHP
-wfLoadExtension('PageToGitHub');
-```
-
-Below this line, add the configuration parameters as explained below in _Configuration_ section.
-
-In order to install dependencies needed by the extension, add the composer configuration to the `composer.local.json` at the root of your mediawiki installation, or create the file if it does not exist yet:
+Add the `require` configuration as in the following example to the `composer.local.json` at the root of your mediawiki installation, or create the file if it does not exist yet:
 
 ```JSON
 {
-	"require": {		
-		"lucamauri/page-to-github": "~1.0"
-	},
-	"extra": {
-		"merge-plugin": {
-			"include": [
-			]
-		}
-	},
-	"config": {
-	}
+    "require": {
+        "lucamauri/page-to-github": "~1.0"
+    },
+    "extra": {
+        "merge-plugin": {
+            "include": [
+            ]
+        }
+    },
+    "config": {
+    }
 }
-
 ```
 
 and, in a command prompt, run Composer in the root of your mediawiki installation:
@@ -54,6 +44,14 @@ and, in a command prompt, run Composer in the root of your mediawiki installatio
 ```
 composer install --no-dev
 ```
+
+Add the following code near the rest of the extensions loading in the site's `LocalSettings.php`:
+
+```PHP
+wfLoadExtension('PageToGitHub');
+```
+
+Below this line, add the configuration parameters as explained below in _Configuration_ section.
 
 ## Configuration
 
