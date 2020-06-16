@@ -61,37 +61,34 @@ In the `LocalSettigs.php` file add:
 $wgP2GAuthToken = 'GitHub-Token';
 $wgP2GIgnoreMinor = true;
 $wgP2GKeyword = 'Keyword';
+$wgP2GAddKeyword = true;
 $wgP2GNameSpace = 'Module';
 $wgP2GOwner = 'Project-Or-Person';
 $wgP2GRepo = 'Name-Of-Your-Repository';
 ```
 
 ### \$wgP2GAuthToken
-
 The GitHub token needed to authenticate and made modification the the repository. You can generate one in your GitHub account in _Settings_ > _Developer settings_ > _Personal access tokens_
 
 ### \$wgP2GIgnoreMinor
-
 If empty or set as `true` the revision is not pushed to GitHub if is marked as _Minor_
 
 ### \$wgP2GKeyword
-
 An optional keyword to check into the page. When present, P2G will _not_ upload pages if the keyword is not written in the page. If the parameter is omitted, P2G will upload all pages in the Namespace specified above.
 
-### \$wgP2GNameSpace
+### \$wgP2GAddKeyword
+An optional boolean parameter: when set to `true` the word defined in _\$wgP2GKeyword_ is added before the name of the page to form the filename.
 
+### \$wgP2GNameSpace
 P2G will upload pages only belonging to the namespace spedified in this variable
 
 ### \$wgP2GOwner
-
 The Person or Organization owner of the repository
 
 ### \$wgP2GRepo
-
 The name of the repository where the code must be uploaded
 
 ## Troubleshoot
-
 To read detailed logging messages, you can intercept the [log group](https://www.mediawiki.org/wiki/Manual:$wgDebugLogGroups) named `PageToGitHub`: for instace with the following configuration into `LocalSetting.php`:
 
 ```
@@ -102,13 +99,10 @@ $wgDebugLogGroups['PageToGitHub'] = "/var/log/mediawiki/PageToGitHub-{$wgDBname}
 ## Documentation
 
 ## License
-
 [GNU General Public License, version 2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
 
 ## Maintainers
-
 [Luca Mauri](https://github.com/lucamauri)
 
 ## Contributors
-
 [Luca Mauri](https://github.com/lucamauri)
