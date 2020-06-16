@@ -92,6 +92,9 @@ class PageToGitHubHooks
             $P2GRepo = $extConfig->get('P2GRepo');
             $P2GNameSpace = $extConfig->get('P2GNameSpace');
 
+            $P2GKeyword = $extConfig->get('P2GKeyword');
+            $P2GAddKeyword = $extConfig->get('P2GAddKeyword');
+
             wfDebugLog('PageToGitHub', '[PageToGitHub]Token: '.$P2GAuthToken);
 
             $client = new \Github\Client();
@@ -99,6 +102,13 @@ class PageToGitHubHooks
 
             // https://github.com/KnpLabs/php-github-api/blob/master/doc/security.md
             $client->authenticate($P2GAuthToken, '', \Github\Client::AUTH_HTTP_TOKEN);
+
+            if ($P2GKeyword[0] != null and $P2GKeyword != '' and $P2GAddKeyword == true) {
+                wfDebugLog('PageToGitHub', '[PageToGitHub]Keyword OK and Add OK');
+                $pageName = $P2GKeyword . "-" . $pageName;
+            } else {
+                wfDebugLog('PageToGitHub', '[PageToGitHub]No Keyword');
+            }
 
             $fileParamArray = [$P2GOwner, $P2GRepo, $pageName.'.lua'];
             $fileContent = '-- [P2G] Auto upload by PageToGitHub on '.date('c').PHP_EOL.'-- [P2G] This code from page '.$P2GNameSpace.':'.$pageName.PHP_EOL.$pageContent;
