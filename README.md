@@ -22,7 +22,13 @@ It was originally conceived and written by [Luca Mauri](https://github.com/lucam
 
 Easiest way to install the extension is using _Composer_: it will automatically resolve all the dependencies and install them as well.
 
-Add the `require` configuration as in the following example to the `composer.local.json` at the root of your mediawiki installation, or create the file if it does not exist yet:
+<<<<<<< HEAD
+Easiest way to install the extension is using _Composer_: it will automatically resolve all the dependencies and install them as well.
+
+=======
+
+> > > > > > > e9dc6a179d3d3a66278b64110221fd9d87ac2c95
+> > > > > > > Add the `require` configuration as in the following example to the `composer.local.json` at the root of your mediawiki installation, or create the file if it does not exist yet:
 
 ```JSON
 {
@@ -82,7 +88,16 @@ An optional keyword to check into the page. When present, P2G will _not_ upload 
 
 ### \$wgP2GAddKeyword
 
+<<<<<<< HEAD
+
 An optional boolean parameter: when set to `true` the word defined in _\$wgP2GKeyword_ is added before the name of the page to form the filename.
+
+### \$wgP2GNameSpace
+
+=======
+An optional boolean parameter: when set to `true` the word defined in _\$wgP2GKeyword_ is added before the name of the page to form the filename.
+
+> > > > > > > e9dc6a179d3d3a66278b64110221fd9d87ac2c95
 
 ### \$wgP2GNameSpace
 
