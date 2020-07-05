@@ -3,12 +3,14 @@
   "author": "[https://www.lucamauri.com/ Luca Mauri]",
   "url": "https://github.com/lucamauri/PageToGitHub",
   "description": "Allow the transport of page content to GitHub on page save",
-  "version": "1.1",
+  "version": "1.2",
   "license-name": "GPL-2.0-or-later",
   "type": "parserhook",
   "manifest_version": 1,
   "AutoloadClasses": {
-    "PageToGitHubHooks": "PageToGitHub.php"
+    "PageToGitHubCommon": "includes/P2GCommon.php",
+    "PageToGitHubHooks": "PageToGitHub.php",
+    "PageToGitHubSpecial": "includes/P2GSpecial.php"
   },
   "Hooks": {
     "PageContentSaveComplete": ["PageToGitHubHooks::onPageContentSaveComplete"]
@@ -46,6 +48,9 @@
   },
   "ConfigRegistry": {
     "PageToGitHub": "GlobalVarConfig::newInstance"
+  },
+  "SpecialPages": {
+    "PageToGitHub": "PageToGitHubSpecial"
   },
   "MessagesDirs": {
     "PageToGitHub": ["i18n"]

@@ -47,8 +47,6 @@ class PageToGitHubHooks
 
         $P2GNameSpace = $config->get('P2GNameSpace');
         $P2GKeyword = $config->get('P2GKeyword');
-        //wfDebugLog('PageToGitHub', '[PageToGitHub]Keyword type: '.gettype($P2GKeyword[0]));
-        //$P2GignoreMinor = true;
         $P2GIgnoreMinor = $config->get('P2GIgnoreMinor');
 
         wfDebugLog('PageToGitHub', '[PageToGitHub]Entered');
@@ -64,7 +62,6 @@ class PageToGitHubHooks
             wfDebugLog('PageToGitHub', '[PageToGitHub]NOT ignoring Minor');
             if ($pageNameSpace == $P2GNameSpace) {
                 wfDebugLog('PageToGitHub', '[PageToGitHub]Namespace OK');
-                // || $P2GKeyword == ''  || strpos($pageContent, $P2GKeyword) > -1
                 wfDebugLog('PageToGitHub', '[PageToGitHub]Keyword count: '.count($P2GKeyword));
                 wfDebugLog('PageToGitHub', '[PageToGitHub]Keyword: '.$P2GKeyword[0]);
                 if ($P2GKeyword[0] == null or $P2GKeyword == '' or (strpos($pageContent, $P2GKeyword) > -1)) {
