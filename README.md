@@ -11,7 +11,7 @@
 
 # PageToGitHub
 
-<img align="left" width="64px" src="https://www.lucamauri.com/content/images/logo/PageToGitHub.png">PageToGitHub, P2G in short, is a MediaWiki extension to automatically transfer code from a MediaWiki wiki to GitHub.
+<img src="https://upload.wikimedia.org/wikipedia/commons/9/9e/PageToGitHub.svg" width="256" align="left" />PageToGitHub, P2G in short, is a MediaWiki extension to automatically transfer code from a MediaWiki wiki to GitHub.
 It was originally conceived and written by [Luca Mauri](https://github.com/lucamauri) for use in [Wikitrek](https://github.com/WikiTrek): it is released as open source here in case it can be useful to anybody else.
 
 ## Features
