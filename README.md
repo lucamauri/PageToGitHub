@@ -109,7 +109,7 @@ $wgDebugLogGroups['PageToGitHub'] = "/var/log/mediawiki/PageToGitHub-{$wgDBname}
 
 ## License
 
-[GNU General Public License, version 2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
+[GNU General Public License, version 3](https://www.gnu.org/licenses/old-licenses/gpl-3.0.en.html)
 
 ## Maintainers
 
