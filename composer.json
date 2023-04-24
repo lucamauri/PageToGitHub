@@ -18,9 +18,9 @@
 		"docs": "https://github.com/lucamauri/PageToGitHub",		
 		"wiki": "https://github.com/lucamauri/PageToGitHub/wiki"
 	},
-	"require": {		
-		"guzzlehttp/guzzle": "6.5.*",
-		"knplabs/github-api": "2.*",
-		"php-http/guzzle6-adapter": "^1.1"
+	"require": {
+		"knplabs/github-api": "^3.0",
+		"guzzlehttp/guzzle": "^7.0.1",
+		"http-interop/http-factory-guzzle": "^1.0"
 	}
 }
