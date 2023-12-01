@@ -1,0 +1,58 @@
+{
+  "name": "PageToGitHub",
+  "author": "[https://www.lucamauri.com/ Luca Mauri]",
+  "url": "https://github.com/lucamauri/PageToGitHub",
+  "description": "Allow the transport of page content to GitHub on page save",
+  "version": "2.0",
+  "license-name": "GPL-2.0-or-later",
+  "type": "parserhook",
+  "manifest_version": 1,
+  "AutoloadClasses": {
+    "PageToGitHubCommon": "includes/P2GCommon.php",
+    "PageToGitHubHooks": "PageToGitHub.php",
+    "PageToGitHubSpecial": "includes/P2GSpecial.php"
+  },
+  "Hooks": {
+    "PageSaveComplete": ["PageToGitHubHooks::onPageSaveComplete"]
+  },
+  "config": {
+    "P2GIgnoreMinor": {
+      "description": "Ignore chages if they are Minor",
+      "value": true
+    },
+    "P2GNameSpace": {
+      "description": "Label of the namespace to check",
+      "descriptionmsg": "p2g-config-namespace",
+      "value": null
+    },
+    "P2GOwner": {
+      "description": "Name of the owner of the repository",
+      "value": null
+    },
+    "P2GRepo": {
+      "description": "Name of the repository where to save the files",
+      "value": null
+    },
+    "P2GKeyword": {
+      "description": "Optional keyword to include selected page only in the transport",
+      "value": null
+    },
+    "P2GAddKeyword": {
+      "description": "Add keyword to file name",
+      "value": null
+    },
+    "P2GAuthToken": {
+      "description": "Personal GitHub token",
+      "value": null
+    }
+  },
+  "ConfigRegistry": {
+    "PageToGitHub": "GlobalVarConfig::newInstance"
+  },
+  "SpecialPages": {
+    "PageToGitHub": "PageToGitHubSpecial"
+  },
+  "MessagesDirs": {
+    "PageToGitHub": ["i18n"]
+  }
+}

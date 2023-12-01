@@ -1,0 +1,26 @@
+{
+	"name": "lucamauri/page-to-github",
+	"description": "Allow the transport of page content to GitHub on page save",
+	"type": "mediawiki-extension",
+	"keywords": ["php", "lua", "github"],
+	"homepage": "https://github.com/lucamauri/PageToGitHub",
+	"authors": [
+		{
+			"name": "Luca Mauri",
+			"homepage": "https://www.lucamauri.com",
+			"role": "Developer"
+		}
+	],
+	"license": "GPL-2.0-or-later",
+	"support": {
+		"issues": "https://github.com/lucamauri/PageToGitHub/issues",
+		"source": "https://github.com/lucamauri/PageToGitHub",
+		"docs": "https://github.com/lucamauri/PageToGitHub",		
+		"wiki": "https://github.com/lucamauri/PageToGitHub/wiki"
+	},
+	"require": {
+		"knplabs/github-api": "^3.0",
+		"guzzlehttp/guzzle": "^7.0.1",
+		"http-interop/http-factory-guzzle": "^1.0"
+	}
+}
