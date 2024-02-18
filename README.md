@@ -9,8 +9,13 @@
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/lucamauri/PageToGitHub.svg)](http://isitmaintained.com/project/lucamauri/PageToGitHub "Average time to resolve an issue")
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/lucamauri/PageToGitHub.svg)](http://isitmaintained.com/project/lucamauri/PageToGitHub "Percentage of issues still open")
 
-# PageToGitHub
 
+## Badges
+[![GPLv3 License](https://img.shields.io/badge/License-GPLv3-008033?logo=gpl)](https://opensource.org/licenses/)
+[![Built with Visual Studio Code](https://img.shields.io/badge/Built_with-VS_Code-007ACC?logo=visualstudiocode)](https://code.visualstudio.com)
+[![Discuss on StackOverflow](https://img.shields.io/badge/Discuss_on-Stack_Overflow-fe7a16?logo=stackoverflow)](https://stackoverflow.com/questions/tagged/pagetogithub?tab=Active)
+
+# PageToGitHub
 <img src="https://upload.wikimedia.org/wikipedia/commons/9/9e/PageToGitHub.svg" width="256" align="left" />PageToGitHub, P2G in short, is a MediaWiki extension to automatically transfer code from a MediaWiki wiki to GitHub.
 It was originally conceived and written by [Luca Mauri](https://github.com/lucamauri) for use in [Wikitrek](https://github.com/WikiTrek): it is released as open source here in case it can be useful to anybody else.
 
