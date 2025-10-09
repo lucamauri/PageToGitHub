@@ -9,5 +9,19 @@
   "pagetogithub": "Placeholder for product name",
   "p2g-specialpage-text": "Intro of the ''Special'' page",
   "p2g-specialpage-variables-text": "Intro of the ''Configuration'' section",
-  "p2g-specialpage-config-title": "Title of the ''config'' section"
+  "p2g-specialpage-config-title": "Title of the ''config'' section",
+  "p2g-specialpage-manual-sync-title": "Title of the ''manual sync'' section",
+  "p2g-specialpage-manual-sync-legend": "Legend for the manual sync form",
+  "p2g-specialpage-manual-sync-text": "Description text for manual sync",
+  "p2g-specialpage-page-title": "Label for page title input",
+  "p2g-specialpage-sync-button": "Text for sync button",
+  "p2g-specialpage-page-not-found": "Error message when page is not found",
+  "p2g-specialpage-sync-success": "Success message for manual sync",
+  "p2g-specialpage-sync-failed": "Failure message for manual sync",
+  "p2g-specialpage-config-validation-title": "Title for config validation section",
+  "p2g-specialpage-config-missing": "Message when required config is missing",
+  "p2g-specialpage-config-valid": "Message when config is complete",
+  "p2g-config-token": "Label for GitHub token",
+  "p2g-config-owner": "Label for repository owner",
+  "p2g-config-repo": "Label for repository name"
 }

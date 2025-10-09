@@ -16,7 +16,18 @@ It was originally conceived and written by [Luca Mauri](https://github.com/lucam
 
 ## Features
 
+- Automatic upload of MediaWiki page content to GitHub on page save
+- Configurable namespace filtering
+- Optional keyword-based filtering
+- Support for minor edit ignoring
+- Customizable file extensions
+- Special page for configuration overview
+
 ## Requirements
+
+- MediaWiki 1.35+
+- PHP 7.4+
+- Composer for dependency management
 
 ## Install
 
@@ -27,7 +38,7 @@ Add the `require` configuration as in the following example to the `composer.loc
 ```JSON
 {
     "require": {
-        "lucamauri/page-to-github": "~2.0"
+        "lucamauri/page-to-github": "~2.1"
     },
     "extra": {
         "merge-plugin": {
@@ -66,6 +77,8 @@ $wgP2GAddKeyword = true;
 $wgP2GNameSpace = 'Module';
 $wgP2GOwner = 'Project-Or-Person';
 $wgP2GRepo = 'Name-Of-Your-Repository';
+$wgP2GFileExtension = 'lua';
+$wgP2GBranch = 'main';
 ```
 
 ### \$wgP2GAuthToken
@@ -96,6 +109,14 @@ The Person or Organization owner of the repository
 
 The name of the repository where the code must be uploaded
 
+### \$wgP2GFileExtension
+
+The file extension for uploaded files (default: 'lua')
+
+### \$wgP2GBranch
+
+The target branch for commits (default: 'main')
+
 ## Troubleshoot
 
 To read detailed logging messages, you can intercept the [log group](https://www.mediawiki.org/wiki/Manual:$wgDebugLogGroups) named `PageToGitHub`: for instace with the following configuration into `LocalSetting.php`:
@@ -109,7 +130,7 @@ $wgDebugLogGroups['PageToGitHub'] = "/var/log/mediawiki/PageToGitHub-{$wgDBname}
 
 ## License
 
-[GNU General Public License, version 3](https://www.gnu.org/licenses/old-licenses/gpl-3.0.en.html)
+[GNU General Public License, version 3 or later](https://www.gnu.org/licenses/old-licenses/gpl-3.0.en.html)
 
 ## Maintainers
 

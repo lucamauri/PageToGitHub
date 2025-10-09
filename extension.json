@@ -3,14 +3,15 @@
   "author": "[https://www.lucamauri.com/ Luca Mauri]",
   "url": "https://github.com/lucamauri/PageToGitHub",
   "description": "Allow the transport of page content to GitHub on page save",
-  "version": "2.0",
-  "license-name": "GPL-2.0-or-later",
+  "version": "2.1",
+  "license-name": "GPL-3.0-or-later",
   "type": "parserhook",
   "manifest_version": 1,
   "AutoloadClasses": {
     "PageToGitHubCommon": "includes/P2GCommon.php",
     "PageToGitHubHooks": "PageToGitHub.php",
-    "PageToGitHubSpecial": "includes/P2GSpecial.php"
+    "PageToGitHubSpecial": "includes/P2GSpecial.php",
+    "P2GGitHubService": "includes/P2GGitHubService.php"
   },
   "Hooks": {
     "PageSaveComplete": ["PageToGitHubHooks::onPageSaveComplete"]
@@ -44,6 +45,14 @@
     "P2GAuthToken": {
       "description": "Personal GitHub token",
       "value": null
+    },
+    "P2GFileExtension": {
+      "description": "File extension for uploaded files",
+      "value": "lua"
+    },
+    "P2GBranch": {
+      "description": "Target branch for commits",
+      "value": "main"
     }
   },
   "ConfigRegistry": {

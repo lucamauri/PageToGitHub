@@ -9,5 +9,19 @@
   "pagetogithub": "Page To GitHub",
   "p2g-specialpage-text": "This page shows details on ''PageToGitHub'' configuration",
   "p2g-specialpage-variables-text": "This section shows the values of ''PageToGitHub'' configuration variables",
-  "p2g-specialpage-config-title": "==Configuration=="
+  "p2g-specialpage-config-title": "==Configuration==",
+  "p2g-specialpage-manual-sync-title": "==Manual Sync==",
+  "p2g-specialpage-manual-sync-legend": "Manual Synchronization",
+  "p2g-specialpage-manual-sync-text": "Manually upload a page to GitHub",
+  "p2g-specialpage-page-title": "Page title:",
+  "p2g-specialpage-sync-button": "Sync Page",
+  "p2g-specialpage-page-not-found": "Page '$1' not found.",
+  "p2g-specialpage-sync-success": "Successfully synced page '$1' to GitHub.",
+  "p2g-specialpage-sync-failed": "Failed to sync page '$1' to GitHub.",
+  "p2g-specialpage-config-validation-title": "==Configuration Validation==",
+  "p2g-specialpage-config-missing": "Missing required configuration: $1",
+  "p2g-specialpage-config-valid": "Configuration is valid and complete.",
+  "p2g-config-token": "GitHub Token",
+  "p2g-config-owner": "Repository Owner",
+  "p2g-config-repo": "Repository Name"
 }
