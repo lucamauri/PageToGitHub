@@ -67,7 +67,10 @@
     "PageToGitHub": "GlobalVarConfig::newInstance"
   },
   "SpecialPages": {
-    "PageToGitHub": "PageToGitHubSpecial"
+    "PageToGitHub": {
+      "class": "PageToGitHubSpecial",
+      "services": ["ConfigFactory"]
+    }
   },
   "MessagesDirs": {
     "PageToGitHub": ["i18n"]

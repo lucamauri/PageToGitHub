@@ -55,6 +55,11 @@ class PageToGitHubHooks {
         $P2GKeyword     = $config->get( 'P2GKeyword' );
         $P2GIgnoreMinor = (bool)$config->get( 'P2GIgnoreMinor' );
 
+        if ( $P2GNameSpace === null ) {
+            wfDebugLog( 'PageToGitHub', '[PageToGitHub]WARNING: P2GNameSpace is not configured — no pages will be synced' );
+            return;
+        }
+
         wfDebugLog( 'PageToGitHub', '[PageToGitHub]||| Entered |||' );
 
         $pageNameSpace = $wikiPage->getTitle()->getNsText();

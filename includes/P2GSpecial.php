@@ -7,7 +7,7 @@
  * @author Luca Mauri
  */
 
-use MediaWiki\MediaWikiServices;
+use MediaWiki\Config\ConfigFactory;
 
 /**
  * Displays a table of all PageToGitHub configuration variables and their
@@ -15,11 +15,18 @@ use MediaWiki\MediaWikiServices;
  */
 class PageToGitHubSpecial extends SpecialPage {
 
+    /** @var ConfigFactory */
+    private ConfigFactory $configFactory;
+
     /**
-     * @inheritDoc
+     * Constructor — receives ConfigFactory via MediaWiki's service container.
+     * Wired through the SpecialPages ObjectFactory spec in extension.json.
+     *
+     * @param ConfigFactory $configFactory Factory used to retrieve extension config
      */
-    public function __construct() {
+    public function __construct( ConfigFactory $configFactory ) {
         parent::__construct( 'PageToGitHub' );
+        $this->configFactory = $configFactory;
     }
 
     /**
@@ -43,7 +50,7 @@ class PageToGitHubSpecial extends SpecialPage {
         $output = $this->getOutput();
         $this->setHeaders();
 
-        $config = MediaWikiServices::getInstance()->getConfigFactory()->makeConfig( 'PageToGitHub' );
+        $config = $this->configFactory->makeConfig( 'PageToGitHub' );
 
         // https://doc.wikimedia.org/mediawiki-core/master/php/classOutputPage.html
         $output->addWikiMsg( 'p2g-specialpage-text' );
@@ -59,21 +66,19 @@ class PageToGitHubSpecial extends SpecialPage {
         );
 
         foreach ( $variableNames as $variableName ) {
-            $output->addHTML( '<tr>' );
-            $output->addHTML( '<th>' . htmlspecialchars( $variableName ) . '</th>' );
+            $output->addHTML( '<tr><th>' . htmlspecialchars( $variableName ) . '</th><td>' );
 
             if ( $variableName === 'P2GAuthToken' ) {
                 // Never read the token from config — output the masked value directly
-                $variableContent = "''hidden''";
+                // Use addWikiTextAsContent for wikitext (''hidden'' renders as <em>hidden</em>)
+                $output->addWikiTextAsContent( "''hidden''" );
             } else {
                 $value = $config->get( $variableName );
-                $variableContent = '<code>' . htmlspecialchars( (string)$value ) . '</code>';
+                // Use addHTML directly to avoid addWikiTextAsContent wrapping in <p> tags
+                $output->addHTML( '<code>' . htmlspecialchars( (string)$value ) . '</code>' );
             }
 
-            $output->addHTML( '<td>' );
-            $output->addWikiTextAsContent( $variableContent );
-            $output->addHTML( '</td>' );
-            $output->addHTML( '</tr>' );
+            $output->addHTML( '</td></tr>' );
         }
 
         $output->addHTML( '</tbody></table>' );
