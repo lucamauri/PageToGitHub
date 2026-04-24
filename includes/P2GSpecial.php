@@ -1,52 +1,86 @@
 <?php
-use MediaWiki\MediaWikiServices;
+/**
+ * PageToGitHub — Special page showing the current extension configuration.
+ *
+ * @file
+ * @license GPL-2.0-or-later
+ * @author Luca Mauri
+ */
 
+use MediaWiki\Config\ConfigFactory;
+
+/**
+ * Displays a table of all PageToGitHub configuration variables and their
+ * current values. The authentication token is never read or displayed.
+ */
 class PageToGitHubSpecial extends SpecialPage {
-	function __construct() {
-		parent::__construct('PageToGitHub');
-	}
 
-	function execute( $par ) {
-        $variablesNames = ["P2GNameSpace", "P2GKeyword", "P2GAddKeyword", "P2GIgnoreMinor","P2GAuthToken", "P2GOwner", "P2GRepo"];
-		$request = $this->getRequest();
-		$output = $this->getOutput();
-		$this->setHeaders();
+    /** @var ConfigFactory */
+    private ConfigFactory $configFactory;
 
-		# Get request data from, e.g.
-		$param = $request->getText( 'param' );
+    /**
+     * Constructor — receives ConfigFactory via MediaWiki's service container.
+     * Wired through the SpecialPages ObjectFactory spec in extension.json.
+     *
+     * @param ConfigFactory $configFactory Factory used to retrieve extension config
+     */
+    public function __construct( ConfigFactory $configFactory ) {
+        parent::__construct( 'PageToGitHub' );
+        $this->configFactory = $configFactory;
+    }
 
-		# Do stuff
-        $config = MediaWikiServices::getInstance()->getConfigFactory()->makeConfig('PageToGitHub');
-        
+    /**
+     * Renders the special page output: an introductory message followed by
+     * a wikitable listing every configuration variable and its current value.
+     * P2GAuthToken is never read from config — its row always shows "hidden".
+     *
+     * @param string|null $par Subpage parameter (unused)
+     */
+    public function execute( $par ): void {
+        $variableNames = [
+            'P2GNameSpace',
+            'P2GKeyword',
+            'P2GAddKeyword',
+            'P2GIgnoreMinor',
+            'P2GAuthToken',
+            'P2GOwner',
+            'P2GRepo'
+        ];
+
+        $output = $this->getOutput();
+        $this->setHeaders();
+
+        $config = $this->configFactory->makeConfig( 'PageToGitHub' );
+
         // https://doc.wikimedia.org/mediawiki-core/master/php/classOutputPage.html
-        $output->addWikiMsg('p2g-specialpage-text');
-        $output->addWikiMsg('p2g-specialpage-config-title');
-        $output->addWikiMsg('p2g-specialpage-variables-text');
+        $output->addWikiMsg( 'p2g-specialpage-text' );
+        $output->addWikiMsg( 'p2g-specialpage-config-title' );
+        $output->addWikiMsg( 'p2g-specialpage-variables-text' );
 
-        $output->addHTML('<table class="wikitable plainlinks" id="p2g-variables"><tbody>
-            <tr>
-            <th>Variabile</th>
-            <th>Valore</th>
-            </tr>');
+        $output->addHTML(
+            '<table class="wikitable plainlinks" id="p2g-variables"><tbody>' .
+            '<tr>' .
+            '<th>' . wfMessage( 'p2g-config-variable-header' )->escaped() . '</th>' .
+            '<th>' . wfMessage( 'p2g-config-value-header' )->escaped() . '</th>' .
+            '</tr>'
+        );
 
-        foreach ($variablesNames as $variableName) {
-            ${$variableName} = $config->get($variableName);
-            $output->addHTML('<tr>');
-            $output->addHTML('<th>' . $variableName . '</th>');
-            if ($variableName == 'P2GAuthToken') {
-                $variableContent = "''hidden''";
+        foreach ( $variableNames as $variableName ) {
+            $output->addHTML( '<tr><th>' . htmlspecialchars( $variableName ) . '</th><td>' );
+
+            if ( $variableName === 'P2GAuthToken' ) {
+                // Never read the token from config — output the masked value directly
+                // Use addWikiTextAsContent for wikitext (''hidden'' renders as <em>hidden</em>)
+                $output->addWikiTextAsContent( "''hidden''" );
             } else {
-                $variableContent = "<code>" . ${$variableName} . "</code>";
+                $value = $config->get( $variableName );
+                // Use addHTML directly to avoid addWikiTextAsContent wrapping in <p> tags
+                $output->addHTML( '<code>' . htmlspecialchars( (string)$value ) . '</code>' );
             }
-            $output->addHTML('<td>');
-            $output->addWikiTextAsContent($variableContent);
-            $output->addHTML('</td>');
-            $output->addHTML('</tr>');
-        }
-        
-        $output->addHTML('</tbody></table>');
 
-        //$wikitext = 'Hello world!';
-		//$output->addWikiTextAsInterface( $wikitext );
-	}
+            $output->addHTML( '</td></tr>' );
+        }
+
+        $output->addHTML( '</tbody></table>' );
+    }
 }

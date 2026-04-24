@@ -9,112 +9,129 @@
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/lucamauri/PageToGitHub.svg)](http://isitmaintained.com/project/lucamauri/PageToGitHub "Average time to resolve an issue")
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/lucamauri/PageToGitHub.svg)](http://isitmaintained.com/project/lucamauri/PageToGitHub "Percentage of issues still open")
 
-
 ## Badges
-[![GPLv3 License](https://img.shields.io/badge/License-GPLv3-008033?logo=gpl)](https://opensource.org/licenses/)
+
+[![GPL-2.0-or-later License](https://img.shields.io/badge/License-GPL--2.0--or--later-008033?logo=gpl)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
 [![Built with Visual Studio Code](https://img.shields.io/badge/Built_with-VS_Code-007ACC?logo=visualstudiocode)](https://code.visualstudio.com)
 [![Discuss on StackOverflow](https://img.shields.io/badge/Discuss_on-Stack_Overflow-fe7a16?logo=stackoverflow)](https://stackoverflow.com/questions/tagged/pagetogithub?tab=Active)
 
 # PageToGitHub
-<img src="https://upload.wikimedia.org/wikipedia/commons/9/9e/PageToGitHub.svg" width="256" align="left" />PageToGitHub, P2G in short, is a MediaWiki extension to automatically transfer code from a MediaWiki wiki to GitHub.
-It was originally conceived and written by [Luca Mauri](https://github.com/lucamauri) for use in [Wikitrek](https://github.com/WikiTrek): it is released as open source here in case it can be useful to anybody else.
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/9/9e/PageToGitHub.svg" width="256" align="left" />
+
+PageToGitHub (P2G) is a MediaWiki extension that automatically uploads page content to a GitHub repository on every page save. It listens for the `PageSaveComplete` hook and can be scoped to a specific namespace and an optional keyword that must be present in the page body.
+
+It was originally conceived and written by [Luca Mauri](https://github.com/lucamauri) for use in [WikiTrek](https://github.com/WikiTrek) and is released as open source in case it is useful to others.
 
 ## Features
 
+- Automatically uploads wikitext content to a GitHub repository on page save
+- Configurable namespace filter: only pages in the specified namespace are synced
+- Optional keyword filter: only pages containing a specific string are synced
+- Optional filename prefix: the keyword can be prepended to the uploaded filename
+- Minor edits can be excluded from syncing
+- Upload and commit messages use the wiki's i18n system
+- Special page (`Special:PageToGitHub`) shows the current configuration
+
 ## Requirements
+
+- PHP 8.1 or later
+- MediaWiki 1.42 or later
+- A GitHub personal access token with repository write permissions
+- [Composer](https://getcomposer.org/) for dependency management
 
 ## Install
 
-Easiest way to install the extension is using _Composer_: it will automatically resolve all the dependencies and install them as well.
+The easiest way to install the extension is using _Composer_: it will automatically resolve and install all dependencies.
 
-Add the `require` configuration as in the following example to the `composer.local.json` at the root of your mediawiki installation, or create the file if it does not exist yet:
+Add the following to `composer.local.json` at the root of your MediaWiki installation (create the file if it does not exist):
 
-```JSON
+```json
 {
     "require": {
-        "lucamauri/page-to-github": "~2.0"
+        "lucamauri/page-to-github": "~2.1"
     },
     "extra": {
         "merge-plugin": {
-            "include": [
-            ]
+            "include": []
         }
     },
-    "config": {
-    }
+    "config": {}
 }
 ```
 
-and, in a command prompt, run Composer in the root of your mediawiki installation:
+Then run Composer from the root of your MediaWiki installation:
 
 ```shell
 composer install --no-dev
 ```
 
-Add the following code near the rest of the extensions loading in the site's `LocalSettings.php`:
+Add the following line near the rest of the extension loading calls in `LocalSettings.php`:
 
-```PHP
-wfLoadExtension('PageToGitHub');
+```php
+wfLoadExtension( 'PageToGitHub' );
 ```
 
-Below this line, add the configuration parameters as explained below in _Configuration_ section.
+Then add the configuration parameters described in the _Configuration_ section below.
 
 ## Configuration
 
-In the `LocalSettigs.php` file add:
+Add the following to `LocalSettings.php`:
 
+```php
+$wgP2GAuthToken    = 'your-github-personal-access-token';
+$wgP2GIgnoreMinor  = true;
+$wgP2GNameSpace    = 'Module';
+$wgP2GOwner        = 'github-username-or-organisation';
+$wgP2GRepo         = 'repository-name';
+$wgP2GKeyword      = '';      // optional
+$wgP2GAddKeyword   = false;   // optional
 ```
-$wgP2GAuthToken = 'GitHub-Token';
-$wgP2GIgnoreMinor = true;
-$wgP2GKeyword = 'Keyword';
-$wgP2GAddKeyword = true;
-$wgP2GNameSpace = 'Module';
-$wgP2GOwner = 'Project-Or-Person';
-$wgP2GRepo = 'Name-Of-Your-Repository';
-```
 
-### \$wgP2GAuthToken
+### `$wgP2GAuthToken`
 
-The GitHub token needed to authenticate and made modification the the repository. You can generate one in your GitHub account in _Settings_ > _Developer settings_ > _Personal access tokens_
+The GitHub personal access token used to authenticate API calls. Generate one in your GitHub account under _Settings_ > _Developer settings_ > _Personal access tokens_. The token must have repository write permissions.
 
-### \$wgP2GIgnoreMinor
+### `$wgP2GIgnoreMinor`
 
-If empty or set as `true` the revision is not pushed to GitHub if is marked as _Minor_
+When set to `true` (the default), page saves flagged as minor edits are not synced to GitHub.
 
-### \$wgP2GKeyword
+### `$wgP2GNameSpace`
 
-An optional keyword to check into the page. When present, P2G will _not_ upload pages if the keyword is not written in the page. If the parameter is omitted, P2G will upload all pages in the Namespace specified above.
+Only pages belonging to this namespace are synced. Set to the namespace label as a string, e.g. `'Module'`.
 
-### \$wgP2GAddKeyword
+### `$wgP2GOwner`
 
-An optional boolean parameter: when set to `true` the word defined in _\$wgP2GKeyword_ is added before the name of the page to form the filename.
+The GitHub username or organisation that owns the target repository.
 
-### \$wgP2GNameSpace
+### `$wgP2GRepo`
 
-P2G will upload pages only belonging to the namespace spedified in this variable
+The name of the GitHub repository where files are uploaded.
 
-### \$wgP2GOwner
+### `$wgP2GKeyword`
 
-The Person or Organization owner of the repository
+An optional keyword string. When set, only pages whose content contains this string are synced. Leave empty (the default) to sync all pages in the configured namespace.
 
-### \$wgP2GRepo
+### `$wgP2GAddKeyword`
 
-The name of the repository where the code must be uploaded
+When set to `true` and `$wgP2GKeyword` is non-empty, the keyword is prepended to the uploaded filename, e.g. a page named `Foo` with keyword `bar` is uploaded as `bar-Foo.lua`. Defaults to `false`.
 
-## Troubleshoot
+## Troubleshooting
 
-To read detailed logging messages, you can intercept the [log group](https://www.mediawiki.org/wiki/Manual:$wgDebugLogGroups) named `PageToGitHub`: for instace with the following configuration into `LocalSetting.php`:
+To read detailed log messages, intercept the [log group](https://www.mediawiki.org/wiki/Manual:$wgDebugLogGroups) named `PageToGitHub` by adding the following to `LocalSettings.php`:
 
-```
+```php
 $wgShowExceptionDetails = true;
 $wgDebugLogGroups['PageToGitHub'] = "/var/log/mediawiki/PageToGitHub-{$wgDBname}.log";
 ```
 
-## Documentation
+## Changelog
+
+See the [GitHub releases page](https://github.com/lucamauri/PageToGitHub/releases) for the full changelog.
 
 ## License
 
-[GNU General Public License, version 3](https://www.gnu.org/licenses/old-licenses/gpl-3.0.en.html)
+This extension is released under the [GNU General Public License 2.0 or later](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html).
 
 ## Maintainers
 

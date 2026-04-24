@@ -2,12 +2,21 @@
   "@metadata": {
     "authors": ["Luca Mauri"]
   },
-  "auto-upload": "''Auto upload'' message on GitHub",
-  "auto-commit": "''Auto commit'' message on GitHub",
-  "code-from-page": "Prefix to the page name",
-  "p2g-config-namespace": "Description of the namespace",
-  "pagetogithub": "Placeholder for product name",
-  "p2g-specialpage-text": "Intro of the ''Special'' page",
-  "p2g-specialpage-variables-text": "Intro of the ''Configuration'' section",
-  "p2g-specialpage-config-title": "Title of the ''config'' section"
+  "p2g-desc": "Short description of the PageToGitHub extension, shown on Special:Version.",
+  "pagetogithub": "Product name placeholder, do not translate.",
+  "p2g-specialpage-text": "Introductory text shown at the top of the PageToGitHub special page.",
+  "p2g-specialpage-config-title": "Section heading for the configuration table on the special page. Contains wikitext markup.",
+  "p2g-specialpage-variables-text": "Introductory sentence above the configuration variables table on the special page.",
+  "auto-upload": "Prefix added to the header comment of every file uploaded to GitHub. Followed by the upload timestamp.",
+  "auto-commit": "Default GitHub commit message used when the page summary is empty.",
+  "code-from-page": "Second line of the file header comment, indicating the source wiki page. Followed by the namespace and page name.",
+  "p2g-config-ignoreminor": "Description of the P2GIgnoreMinor configuration variable, shown on Special:Version.",
+  "p2g-config-namespace": "Description of the P2GNameSpace configuration variable, shown on Special:Version.",
+  "p2g-config-owner": "Description of the P2GOwner configuration variable, shown on Special:Version.",
+  "p2g-config-repo": "Description of the P2GRepo configuration variable, shown on Special:Version.",
+  "p2g-config-keyword": "Description of the P2GKeyword configuration variable, shown on Special:Version.",
+  "p2g-config-addkeyword": "Description of the P2GAddKeyword configuration variable, shown on Special:Version.",
+  "p2g-config-authtoken": "Description of the P2GAuthToken configuration variable, shown on Special:Version. The value of this variable is never displayed in the UI.",
+  "p2g-config-variable-header": "Column header for the configuration variable name in the table on the PageToGitHub special page.",
+  "p2g-config-value-header": "Column header for the configuration variable value in the table on the PageToGitHub special page."
 }
