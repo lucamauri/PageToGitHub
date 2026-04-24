@@ -3,12 +3,17 @@
   "author": "[https://www.lucamauri.com/ Luca Mauri]",
   "url": "https://github.com/lucamauri/PageToGitHub",
   "description": "Allow the transport of page content to GitHub on page save",
-  "version": "2.0",
+  "version": "2.1.0",
+  "requires": {
+    "MediaWiki": ">= 1.42.0",
+    "platform": {
+      "php": ">= 8.1.0"
+    }
+  },
   "license-name": "GPL-2.0-or-later",
-  "type": "parserhook",
-  "manifest_version": 1,
+  "type": "hook",
+  "manifest_version": 2,
   "AutoloadClasses": {
-    "PageToGitHubCommon": "includes/P2GCommon.php",
     "PageToGitHubHooks": "PageToGitHub.php",
     "PageToGitHubSpecial": "includes/P2GSpecial.php"
   },
@@ -17,7 +22,8 @@
   },
   "config": {
     "P2GIgnoreMinor": {
-      "description": "Ignore chages if they are Minor",
+      "description": "Ignore changes if they are minor",
+      "descriptionmsg": "p2g-config-ignoreminor",
       "value": true
     },
     "P2GNameSpace": {
@@ -27,22 +33,27 @@
     },
     "P2GOwner": {
       "description": "Name of the owner of the repository",
+      "descriptionmsg": "p2g-config-owner",
       "value": null
     },
     "P2GRepo": {
       "description": "Name of the repository where to save the files",
+      "descriptionmsg": "p2g-config-repo",
       "value": null
     },
     "P2GKeyword": {
       "description": "Optional keyword to include selected page only in the transport",
-      "value": null
+      "descriptionmsg": "p2g-config-keyword",
+      "value": ""
     },
     "P2GAddKeyword": {
       "description": "Add keyword to file name",
-      "value": null
+      "descriptionmsg": "p2g-config-addkeyword",
+      "value": false
     },
     "P2GAuthToken": {
       "description": "Personal GitHub token",
+      "descriptionmsg": "p2g-config-authtoken",
       "value": null
     }
   },

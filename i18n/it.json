@@ -2,12 +2,19 @@
   "@metadata": {
     "authors": ["Luca Mauri"]
   },
+  "p2g-desc": "Carica il contenuto delle pagine in un repository GitHub al salvataggio",
+  "pagetogithub": "Page To GitHub",
+  "p2g-specialpage-text": "Questa pagina mostra dettagli sulla configurazione di ''PageToGitHub''",
+  "p2g-specialpage-config-title": "==Configurazione==",
+  "p2g-specialpage-variables-text": "Questa sezione mostra i valori delle variabili di configurazione di ''PageToGitHub''",
   "auto-upload": "Upload automatica di PageToGitHub il",
   "auto-commit": "Commit automatico di PageToGitHub",
   "code-from-page": "Questo codice proviene da",
-  "p2g-config-namespace": "Nome del namespace da controllare",
-  "pagetogithub": "Page To GitHub",
-  "p2g-specialpage-text": "Questa pagina mostra dettagli sulla configurazione di ''PageToGitHub''",
-  "p2g-specialpage-variables-text": "Questa sezione mostra i valori delle varibili di configurazione di ''PageToGitHub''",
-  "p2g-specialpage-config-title": "==Configurazione=="
+  "p2g-config-ignoreminor": "Ignora i salvataggi contrassegnati come modifiche minori",
+  "p2g-config-namespace": "Nome del namespace le cui pagine vengono sincronizzate con GitHub",
+  "p2g-config-owner": "Nome utente GitHub o organizzazione proprietaria del repository di destinazione",
+  "p2g-config-repo": "Nome del repository GitHub dove vengono salvati i file",
+  "p2g-config-keyword": "Parola chiave opzionale: vengono sincronizzate solo le pagine che contengono questa stringa. Lasciare vuoto per sincronizzare tutte le pagine del namespace",
+  "p2g-config-addkeyword": "Aggiunge la parola chiave definita in P2GKeyword come prefisso al nome del file sincronizzato",
+  "p2g-config-authtoken": "Token di accesso personale GitHub utilizzato per autenticare le chiamate API"
 }

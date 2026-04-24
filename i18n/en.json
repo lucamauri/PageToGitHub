@@ -2,12 +2,19 @@
   "@metadata": {
     "authors": ["Luca Mauri"]
   },
+  "p2g-desc": "Uploads page content to a GitHub repository on page save",
+  "pagetogithub": "Page To GitHub",
+  "p2g-specialpage-text": "This page shows details on ''PageToGitHub'' configuration",
+  "p2g-specialpage-config-title": "==Configuration==",
+  "p2g-specialpage-variables-text": "This section shows the values of ''PageToGitHub'' configuration variables",
   "auto-upload": "Auto upload by PageToGitHub on",
   "auto-commit": "Auto commit by PageToGitHub",
   "code-from-page": "This code from page",
-  "p2g-config-namespace": "Label of the namespace to check",
-  "pagetogithub": "Page To GitHub",
-  "p2g-specialpage-text": "This page shows details on ''PageToGitHub'' configuration",
-  "p2g-specialpage-variables-text": "This section shows the values of ''PageToGitHub'' configuration variables",
-  "p2g-specialpage-config-title": "==Configuration=="
+  "p2g-config-ignoreminor": "Ignore page saves flagged as minor edits",
+  "p2g-config-namespace": "Name of the namespace whose pages are synced to GitHub",
+  "p2g-config-owner": "GitHub username or organisation that owns the target repository",
+  "p2g-config-repo": "Name of the GitHub repository where files are saved",
+  "p2g-config-keyword": "Optional keyword: only pages containing this string are synced. Leave empty to sync all pages in the namespace",
+  "p2g-config-addkeyword": "Prefix the synced filename with the keyword defined in P2GKeyword",
+  "p2g-config-authtoken": "GitHub personal access token used to authenticate API calls"
 }
