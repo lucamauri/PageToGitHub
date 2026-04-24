@@ -16,5 +16,7 @@
   "p2g-config-repo": "Description of the P2GRepo configuration variable, shown on Special:Version.",
   "p2g-config-keyword": "Description of the P2GKeyword configuration variable, shown on Special:Version.",
   "p2g-config-addkeyword": "Description of the P2GAddKeyword configuration variable, shown on Special:Version.",
-  "p2g-config-authtoken": "Description of the P2GAuthToken configuration variable, shown on Special:Version. The value of this variable is never displayed in the UI."
+  "p2g-config-authtoken": "Description of the P2GAuthToken configuration variable, shown on Special:Version. The value of this variable is never displayed in the UI.",
+  "p2g-config-variable-header": "Column header for the configuration variable name in the table on the PageToGitHub special page.",
+  "p2g-config-value-header": "Column header for the configuration variable value in the table on the PageToGitHub special page."
 }
