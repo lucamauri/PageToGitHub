@@ -9,15 +9,28 @@
  */
 
 use MediaWiki\Content\TextContent;
-use MediaWiki\MediaWikiServices;
+use MediaWiki\Config\ConfigFactory;
 use MediaWiki\Revision\SlotRecord;
 
-class PageToGitHubHooks
-{
+class PageToGitHubHooks {
+
+    /** @var ConfigFactory */
+    private ConfigFactory $configFactory;
+
+    /**
+     * Constructor — receives dependencies via MediaWiki's service container.
+     * Wired through the HookHandlers block in extension.json.
+     *
+     * @param ConfigFactory $configFactory Factory used to retrieve extension config
+     */
+    public function __construct( ConfigFactory $configFactory ) {
+        $this->configFactory = $configFactory;
+    }
+
     /**
      * Triggered after a page has been saved.
      * Checks namespace and optional keyword filter, then uploads the page
-     * content to GitHub via WriteToGithub().
+     * content to GitHub via writeToGithub().
      *
      * @param WikiPage $wikiPage The page that was saved
      * @param MediaWiki\User\UserIdentity $user The user who saved the page
@@ -28,7 +41,7 @@ class PageToGitHubHooks
      *
      * @see https://www.mediawiki.org/wiki/Manual:Hooks/PageSaveComplete
      */
-    public static function onPageSaveComplete(
+    public function onPageSaveComplete(
         WikiPage $wikiPage,
         MediaWiki\User\UserIdentity $user,
         string $summary,
@@ -36,7 +49,7 @@ class PageToGitHubHooks
         MediaWiki\Revision\RevisionRecord $revisionRecord,
         MediaWiki\Storage\EditResult $editResult
     ): void {
-        $config = MediaWikiServices::getInstance()->getConfigFactory()->makeConfig( 'PageToGitHub' );
+        $config = $this->configFactory->makeConfig( 'PageToGitHub' );
 
         $P2GNameSpace   = $config->get( 'P2GNameSpace' );
         $P2GKeyword     = $config->get( 'P2GKeyword' );
@@ -84,7 +97,7 @@ class PageToGitHubHooks
         }
 
         wfDebugLog( 'PageToGitHub', '[PageToGitHub]Keyword OK' );
-        $return = self::WriteToGithub( $pageTitle, $pageContent, $summary, $config );
+        $return = $this->writeToGithub( $pageTitle, $pageContent, $summary, $config );
         wfDebugLog( 'PageToGitHub', '[PageToGitHub]Returned: ' . $return );
     }
 
@@ -99,14 +112,14 @@ class PageToGitHubHooks
      *
      * @return bool True on success, false on failure
      */
-    public static function WriteToGithub(
+    private function writeToGithub(
         string $pageName,
         string $pageContent,
         ?string $description,
         \Config $extConfig
     ): bool {
         try {
-            wfDebugLog( 'PageToGitHub', '[PageToGitHub]Function WriteToGithub' );
+            wfDebugLog( 'PageToGitHub', '[PageToGitHub]Function writeToGithub' );
 
             $P2GAuthToken  = $extConfig->get( 'P2GAuthToken' );
             $P2GOwner      = $extConfig->get( 'P2GOwner' );
@@ -149,8 +162,6 @@ class PageToGitHubHooks
 
             // https://github.com/KnpLabs/php-github-api/blob/master/doc/repo/contents.md
             $fileExists = $client->api( 'repo' )->contents()->exists( ...$fileParamArray );
-
-            wfDebugLog( 'PageToGitHub', '[PageToGitHub]Message -auto-upload-: ' . wfMessage( 'auto-upload' )->parse() );
 
             if ( $fileExists === true ) {
                 wfDebugLog( 'PageToGitHub', '[PageToGitHub]Exist' );

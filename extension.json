@@ -18,7 +18,13 @@
     "PageToGitHubSpecial": "includes/P2GSpecial.php"
   },
   "Hooks": {
-    "PageSaveComplete": ["PageToGitHubHooks::onPageSaveComplete"]
+    "PageSaveComplete": "PageToGitHubHooks"
+  },
+  "HookHandlers": {
+    "PageToGitHubHooks": {
+      "class": "PageToGitHubHooks",
+      "services": ["ConfigFactory"]
+    }
   },
   "config": {
     "P2GIgnoreMinor": {
